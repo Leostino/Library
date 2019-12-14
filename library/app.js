@@ -3,11 +3,35 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+
+// connecting to mongoDB
+
+const databaseUri = "mongodb://localhost/library";
+
+if (process.env.MONGODB_URI) {
+
+  mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log("MongoDB connected..."))
+  .catch(err => console.log(err))
+
+}else{
+
+  mongoose.connect(databaseUri, {useNewUrlParser: true, useUnifiedTopology: true})
+  .then(() => console.log("MongoDB connected..."))
+  .catch(err => console.log(err))
+
+}
+
+mongoose.set('useCreateIndex', true);
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
