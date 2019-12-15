@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require("../models/index")
+const db = require("../models/index");
+const bcrypt = require("bcryptjs");
 
 /* GET users listing. */
 router.get('/login', function(req, res, next) {
@@ -11,6 +12,8 @@ router.get('/register', function(req, res, next) {
   res.send('Register');
 });
 
+
+// Register new user
 router.post('/register', function(req, res) {
 
   const { name, email, password, password2 } = req.body;
@@ -43,9 +46,69 @@ router.post('/register', function(req, res) {
 
   }else{
 
-    // create a user
+    // check for or create a user 
+
+    db.User
+      .findOne({email: email})
+      .then(user => {
+
+        if(user) {
+
+          // email already exist
+          // user logged in,redirect user to index page
+        }else{
+
+          // hash password
+
+          bcrypt.genSalt(10, (salt, err) => 
+
+          bcrypt.hash(password, salt, () => (hash, err) => {
+
+            if(err) throw err;
+
+            password = hash;
+
+            db.User.create({ name, email, password })
+            .then(user => {
+            // redirect new user to login page
+             req.flash("success_msg", "You are now registered, Yon can login")
+             res.redirect("/user/login")
+          })
+          .catch(err => res.status(422).json(err));
+          }))
+          
+        }
+
+        
+
+        // re
+        
+
+      })
+      .catch(err => res.status(422).json(err));
 
   }
 });
+
+
+
+// user login, this is where passport works wonders
+// Login
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', {
+    // redirect to index page
+    successRedirect: '',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  })(req, res, next);
+});
+
+// Logout
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/users/login');
+});
+
 
 module.exports = router;

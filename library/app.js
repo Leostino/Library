@@ -1,14 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require("express-session");
+const flash = require('connect-flash');
+const passport = require("passport");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
-var app = express();
+// Passport config
+require("./config/passport")(passport);
+
+
+// user and index routes
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+
+// app from express
+const app = express();
 
 
 // connecting to mongoDB
@@ -18,13 +28,13 @@ const databaseUri = "mongodb://localhost/library";
 if (process.env.MONGODB_URI) {
 
   mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDB connected..."))
+  .then(() => console.log("[MongoDB] ==> connected..."))
   .catch(err => console.log(err))
 
 }else{
 
   mongoose.connect(databaseUri, {useNewUrlParser: true, useUnifiedTopology: true})
-  .then(() => console.log("MongoDB connected..."))
+  .then(() => console.log("[MongoDB] ==> connected..."))
   .catch(err => console.log(err))
 
 }
@@ -43,6 +53,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// Express Session
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true,
+}));
+
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// Connect Flash
+app.use(flash());
+
+// Global Var
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  next();
+})
+
+// set routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
