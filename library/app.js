@@ -14,8 +14,8 @@ require("./config/passport")(passport);
 
 
 // user and index routes
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const apiRoute = require('./routes/api');
+const usersRoute = require('./routes/users');
 
 // app from express
 const app = express();
@@ -28,7 +28,7 @@ const databaseUri = "mongodb://localhost/library";
 if (process.env.MONGODB_URI) {
 
   mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("[MongoDB] ==> connected..."))
+  .then(() => console.log("[MLab] ==> connected..."))
   .catch(err => console.log(err))
 
 }else{
@@ -78,8 +78,23 @@ app.use((req, res, next) => {
 })
 
 // set routes
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', apiRoute);
+app.use('/users', usersRoute);
+
+
+// build on heroku
+
+if (process.env.NODE_ENV === "production") {
+  
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+
+    res.sendFile(path.resolve(__dirname, "client", "build" , "index.html"));
+
+  })
+
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
