@@ -17,26 +17,26 @@ const bcrypt = require("bcryptjs");
 // Register new user
 router.post('/register', function(req, res) {
 
-  const { name, email, userPassword, userPassword2 } = req.body;
+  const { name, email, password, password2 } = req.body;
   let errors = [];
 
   // check required fields
 
-  if ((!name) || (!email) || (!userPassword) || (!userPassword2)) {
+  if ((!name) || (!email) || (!password) || (!password2)) {
 
     errors.push({ msg: "Please fill in all fields"})
   }
 
   // check for passwords
 
-  if(userPassword !== userPassword2) {
+  if(password !== password2) {
 
     errors.push({ msg: "Passwords do not match"})
   }
 
   // check length of password
 
-  if(userPassword.length < 6) {
+  if(password.length < 6) {
 
     errors.push({ msg: "Password should be at least 6 characters"})
   }
@@ -69,18 +69,18 @@ router.post('/register', function(req, res) {
         console.log(`
                     ${name}
                     ${email}
-                    ${userPassword}
-                    ${userPassword2}`)
+                    ${password}
+                    ${password2}`)
 
         bcrypt.genSalt(10, (salt, err) => 
 
-        bcrypt.hash(userPassword, salt, () => (hash, err) => {
+        bcrypt.hash(password, salt, () => (hash, err) => {
 
           if(err) throw err;
 
-          userPassword = hash;
+          password = hash;
 
-          return userPassword;
+          return password;
           
         }))          
         
@@ -91,7 +91,7 @@ router.post('/register', function(req, res) {
 
   }
 
-  db.User.create({ name: name, email: email, password: userPassword })
+  db.User.create({ name, email, password})
   .then(user => {
     console.log(`new ${user} created`)
     // redirect new user to login page
