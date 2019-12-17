@@ -8,21 +8,26 @@ const { ensureAuthenticated } = require('../config/auth');
 
 
 // api routes
-router.get('/books', ensureAuthenticated, (req, res) =>
+router.get('/books', ensureAuthenticated, (req, res) => {
+console.log("user LOGGED")
   db.User.find({})
-  .populate("books")
-  .sort({ date: -1 })
-  .then(dbModel => {
-    console.log(dbModel)
-    res.json(dbModel)})
+   .populate("books")
+  .then(data => {
+
+
+
+     
+     res.json(data.books)
+  })
   .catch(err => res.status(422).json(err))
-);
+});
 
 
 
 router.post("/books", ensureAuthenticated, (req, res) => {
   console.log(req.body)
   db.Library.create(req.body)
+  .then(({ _id }) => db.User.findOneAndUpdate({}, { $push: { books: _id } }, { new: true }))
   .then(dbModel => {
     console.log(dbModel)
     res.json(dbModel)
@@ -52,7 +57,7 @@ router.put("/books/:id", ensureAuthenticated, (req, res) =>
 
 router.delete("/books/:id", ensureAuthenticated, (req, res) => 
   db.Library.findById({ _id: req.params.id })
-  .then(dbModel => dbModel.remove())
+  .then(dbModel => dbModel.deleteOne())
   .then(dbModel => console.log("book deleted") && res.json(dbModel))
   .catch(err => res.status(422).json(err))
 );

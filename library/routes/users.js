@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../models/index");
+const passport = require("passport")
 const bcrypt = require("bcryptjs");
 
 
@@ -16,6 +17,8 @@ const bcrypt = require("bcryptjs");
 
 // Register new user
 router.post('/register', function(req, res) {
+
+  var newUser;
 
   const { name, email, password, password2 } = req.body;
   let errors = [];
@@ -65,22 +68,42 @@ router.post('/register', function(req, res) {
 
       }else{
 
+        newUser = {
+          name, email, password
+        }
+
         // hash password
         console.log(`
-                    ${name}
-                    ${email}
-                    ${password}
-                    ${password2}`)
+                    ${newUser.name}
+                    ${newUser.email}
+                    ${newUser.password}
+                    `)
 
-        bcrypt.genSalt(10, (salt, err) => 
+        bcrypt.genSalt(10, (err, salt) => 
 
-        bcrypt.hash(password, salt, () => (hash, err) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
 
           if(err) throw err;
 
-          password = hash;
+          console.log(hash)
 
-          return password;
+          newUser.password = hash
+
+          console.log(newUser.password);
+
+          db.User.create({ 
+            name: newUser.name,
+            email: newUser.email,
+            password: newUser.password
+          })
+          .then(user => {
+            console.log(`new ${user} created`)
+            // redirect new user to login page
+            // req.flash("success_msg", "You are now registered, Yon can login")
+            res.redirect("/user/login")
+          })
+          .catch(err => res.status(422).json(err));
+        
           
         }))          
         
@@ -91,15 +114,7 @@ router.post('/register', function(req, res) {
 
   }
 
-  db.User.create({ name, email, password})
-  .then(user => {
-    console.log(`new ${user} created`)
-    // redirect new user to login page
-    // req.flash("success_msg", "You are now registered, Yon can login")
-    res.redirect("/user/login")
-  })
-  .catch(err => res.status(422).json(err));
-
+  
 });
 
 

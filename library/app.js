@@ -40,6 +40,9 @@ if (process.env.MONGODB_URI) {
 }
 
 mongoose.set('useCreateIndex', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useUnifiedTopology', true);
 
 
 
@@ -68,14 +71,14 @@ app.use(passport.session());
 
 
 // Connect Flash
-app.use(flash());
+// app.use(flash());
 
 // Global Var
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash("success_msg");
-  res.locals.error_msg = req.flash("error_msg");
-  next();
-})
+// app.use((req, res, next) => {
+//   res.locals.success_msg = req.flash("success_msg");
+//   res.locals.error_msg = req.flash("error_msg");
+//   next();
+// })
 
 // set routes
 app.use('/api', apiRoute);
