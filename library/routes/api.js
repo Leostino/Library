@@ -8,13 +8,13 @@ const { ensureAuthenticated } = require('../config/auth');
 
 
 // api routes
-router.get('/books', ensureAuthenticated, (req, res) => {
+router.get('/books', (req, res) => {
 console.log("user LOGGED")
-  db.User.find({})
-   .populate("books")
+  db.User.findOne({})
+  .populate("books")
   .then(data => {
 
-
+   console.log(data.books[0].description)
 
      
      res.json(data.books)
