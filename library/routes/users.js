@@ -100,7 +100,7 @@ router.post('/register', function(req, res) {
             console.log(`new ${user} created`)
             // redirect new user to login page
             // req.flash("success_msg", "You are now registered, Yon can login")
-            res.redirect("/user/login")
+            res.redirect("/users/login")
           })
           .catch(err => res.status(422).json(err));
         

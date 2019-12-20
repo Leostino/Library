@@ -17,6 +17,8 @@ export default {
         return axios.post("/users/register", registerData);
     },
 
+    // logout user
+
     logout: function() {
         return axios.get("/users/logout");
     },
@@ -28,39 +30,35 @@ export default {
     return axios.get("/api/books");
   },
 
-  // Gets book with the given id
+  // Gets book with the id
 
   getBook: function(id) {
     return axios.get("/api/books/"+id);
   },
 
-  // Deletes book with the given id from database
+  // Deletes book with the id from database
 
-  deleteJob: function(id) {
+  deleteBook: function(id) {
     return axios.delete("/api/book/"+id);
   },
 
-  // Saves job to the database
+  // Saves book to the database
 
-  saveJob: function(jobData) {
-    return axios.post("/books", jobData);
+  saveBook: function(bookData) {
+    return axios.post("/api/books", bookData);
   },
 
-  // Edits job with the given id saved in database
+  // Edits book with the id
 
-  editJob: function(id, jobData) {
-    return axios.put("/api/books/"+id, jobData)
+  editBook: function(id, bookData) {
+    return axios.put("/api/books/"+id, bookData)
   },
 
-  // query job api for jobs
+  // query google books api for books
 
-  search: function(search, location) {
+  searchBook: function(query) {
 
-    const api_key = "72423555f215d5d8c1fbe985a57e35bd";
-
-    const endPoint = "https://cors-anywhere.herokuapp.com/https://authenticjobs.com/api/?api_key="+ api_key +"&method=aj.jobs.search&keywords="+ search +"&perpage=10&location="+ location +"&format=json"
-
-    return axios.get(endPoint)
+    return axios.get("https://www.googleapis.com/books/v1/volumes/?", { params: { q: query } });
   }
   
 };
