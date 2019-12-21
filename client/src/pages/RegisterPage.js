@@ -45,14 +45,12 @@ class RegisterPage extends React.Component {
         event.preventDefault();
 
         // run some form authentication before posting
-        console.log(this.state.email)
 
         let validEmail = this.ValidateEmail(this.state.email);
 
 
         if(!validEmail) {
 
-            console.log(validEmail);
 
             this.setState({message: "You have entered an invalid email address!"})
 
@@ -66,8 +64,6 @@ class RegisterPage extends React.Component {
 
         }else{
 
-            console.log(validEmail);
-            console.log(this.state.password);
             API.register({
 
                email: validEmail,

@@ -4,12 +4,15 @@ import React from 'react';
 
 import RegisterPage from "./pages/RegisterPage";
 
+import BookSearch from "./pages/BookSearch";
+
 import './App.css';
 
 function App() {
   return (
     // <LoginPage />
-    <RegisterPage />
+    // <RegisterPage />
+    <BookSearch />
    
   );
 }
