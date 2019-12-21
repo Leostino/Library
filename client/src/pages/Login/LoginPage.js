@@ -18,6 +18,15 @@ class LoginPage extends React.Component {
     }
 
 
+    ValidateEmail = email => {
+
+     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        return email;
+      }
+        
+    }
+    
+
     handleInputChange = event => {
 
         const { name, value } = event.target;
@@ -38,29 +47,42 @@ class LoginPage extends React.Component {
 
         // run some form authentication before posting
 
-        console.log(this.state.email)
-        console.log(this.state.password)
+        let validEmail = this.ValidateEmail(this.state.email);
 
-        API.login({
 
-            email: this.state.email,
-            password: this.state.password
+        if(!validEmail) {
 
-        })
-        .then(user => {
+            this.setState({message: "You have entered an invalid email address!"})
 
-            if(!user) {
+        }else if(this.state.password.length < 6) {
 
-                this.setState({message: "This email is not register"})
+            this.setState({message: "Check your password!"})
 
-            }else if((user) && (user.password !== this.state.password)) {
+        }else{
 
-                this.setState({message: "Password is incorrect"})
+           API.login({
 
-            }
+               email: validEmail,
+               password: this.state.password
 
-        })
+            }).then(user => {
 
+                console.log("Login posted")
+
+                if(!user) {
+
+                    this.setState({message: "This email is not register"})
+
+                }else if((user) && (user.password !== this.state.password)) {
+
+                    this.setState({message: "Password is incorrect"})
+
+                }
+
+            })
+
+
+        }       
 
 
     }

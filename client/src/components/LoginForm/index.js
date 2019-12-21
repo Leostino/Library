@@ -29,7 +29,7 @@ function LoginForm(props) {
               <Row>
                 <Col md={10}>
                     <Form.Group controlId="formBasicEmail">
-                       <Form.Label htmlFor="email" id="email">Email address</Form.Label>
+                       <Form.Label htmlFor="email" id="email" className="font-weight-bold">Email address</Form.Label>
                        <Form.Control 
                             id="email"
                           name="email" 
@@ -38,7 +38,7 @@ function LoginForm(props) {
                           placeholder="Enter email"
                           onChange={props.handleInputChange}
                         />
-                        <Form.Text className="text-muted">
+                        <Form.Text className="text-muted font-weight-bold">
                           We'll never share your email with anyone else.
                         </Form.Text>
                     </Form.Group>
@@ -51,7 +51,7 @@ function LoginForm(props) {
                 <Col md={10}>
 
                    <Form.Group controlId="formBasicPassword">
-                       <Form.Label id="password" htmlFor="password">Password</Form.Label>
+                       <Form.Label id="password" className="font-weight-bold" htmlFor="password">Password</Form.Label>
                        <Form.Control 
                              id="password"
                            name="password"
@@ -63,16 +63,16 @@ function LoginForm(props) {
                     </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
                         
-                        <a href="/view/register">Or Register User</a>
+                        <a className="font-weight-bold" href="/view/register">Or Register User</a>
                         
-                        <a className="float-right" href="">Forgot password</a>
+                        <a className="float-right font-weight-bold" href="">Forgot password</a>
                     </Form.Group>
                 </Col>
               </Row>
               <Row>
                     <Col md={10}>
-                          <span>{props.message}</span>
-                        <Button className="w-100" style={{ backgroundColor: "#007bff"}} onClick={props.handleFormSubmit} variant="primary" type="submit">
+                          <p className="w-100 text-center mb-3 font-weight-bold">{props.message}</p>
+                        <Button className="w-100 font-weight-bold" style={{ backgroundColor: "#007bff"}} onClick={props.handleFormSubmit} variant="primary" type="submit">
                            Login
                         </Button>
                     </Col>
