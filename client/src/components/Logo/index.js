@@ -7,7 +7,7 @@ import React from "react"
 
 function Logo(props) {
     return (
-        <img className="mt-3 ml-3 border bg-light" src={props.src} alt={props.name} style={{width:100+"px"}} />        
+        <img className="mt-3 ml-3 border d-inline bg-light" src={props.src} alt={props.name} style={{width:80+"px"}} />        
     )
 }
 

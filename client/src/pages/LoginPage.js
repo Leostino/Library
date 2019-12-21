@@ -1,10 +1,8 @@
 import React from "react"
 
-import "./LoginPage.css";
+import LoginForm from "../components/LoginForm";
 
-import LoginForm from "../../components/LoginForm";
-
-import API from "../../utils/API";
+import API from "../utils/API";
 
 
 
@@ -20,9 +18,9 @@ class LoginPage extends React.Component {
 
     ValidateEmail = email => {
 
-     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        return email;
-      }
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+            return email;
+        }
         
     }
     

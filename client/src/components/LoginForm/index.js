@@ -1,10 +1,8 @@
 import React from "react";
 
-// import { Router, Link } from "react-router-dom";
-
 import "./style.css";
 
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
 import Logo from "../Logo";
 
@@ -23,7 +21,7 @@ function LoginForm(props) {
          name={LogoImage[0].name}
         />
 
-     <div className="d-flex justify-content-center align-items-center mt-n4">
+     <div className="d-flex justify-content-center align-items-center d-inline mt-n5">
         <div id="login-form" className="jumbotron shadow w-50 pl-5 mt-5 mb-5">
             <Form className="ml-5 pl-4">
               <Row>
