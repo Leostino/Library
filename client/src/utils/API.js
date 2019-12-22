@@ -4,26 +4,26 @@ import axios from "axios";
 
 
 export default {
-    // USER ROUTES
-    // login user
+  // USER ROUTES
+  // login user
 
-    login: function(loginData) {
-        return axios.post("/users/login", loginData);
-    },
+  login: function(loginData) {
+    return axios.post("/users/login", loginData);
+  },
 
-    // register user
+  // register user
 
-    register: function(registerData) {
-        return axios.post("/users/register", registerData);
-    },
+  register: function(registerData) {
+    return axios.post("/users/register", registerData);
+  },
 
-    // logout user
+  // logout user
 
-    logout: function() {
-        return axios.get("/users/logout");
-    },
+  logout: function() {
+    return axios.get("/users/logout");
+  },
 
-   // API ROUTES
+  // API ROUTES
   // Gets all books
 
   getBooks: function() {

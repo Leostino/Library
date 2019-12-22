@@ -14,7 +14,7 @@ import logoImage from "../../images.json";
 function NavBar (props) {
     return (
         
-        <Navbar bg="primary" variant="dark">
+        <Navbar className="sticky-top" bg="primary" variant="dark">
         <Logo src={logoImage[0].src} name={logoImage[0].name} />
             
     <Navbar.Brand><h1 className="mb-n5 text-light font-weight-bold">Library</h1></Navbar.Brand>

@@ -8,6 +8,8 @@ import BookResult from "../components/BookResult";
 
 import API from "../utils/API";
 
+import { Container } from "react-bootstrap";
+
 
 // class for search page
 
@@ -99,7 +101,7 @@ class BookSearch extends React.Component {
 
     render () {
         return (        
-            <div id="search-page">
+            <div style={{ backgroundColor: "#6c757d"}}>
                 
                 <NavBar 
                 search={this.state.search}
@@ -107,10 +109,13 @@ class BookSearch extends React.Component {
                 handleInputChange={this.handleInputChange}
                 handleFormSubmit={this.handleFormSubmit}
                 />
+
+                <Container>
             
                 <BookResult 
                 books={this.state.books}
                 />
+                </Container>
                 
 
             </div>

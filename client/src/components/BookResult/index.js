@@ -3,22 +3,34 @@ import React from "react";
 function BookResult(props) {
     return (
         <ul className="list-group">
-      {props.books.map(book => (
-        <li key={book.id} className="list-group-item card-body font-weight-bold mt-3 mb-3">
-          {/* key={book.id} */}
-          <img src={book.volumeInfo.imageLinks.thumbnail}></img>
-           <h3>Title: {book.volumeInfo.title}</h3>
-            <p>Authors: {book.volumeInfo.authors}</p>
-            <p>Description: {book.volumeInfo.description}</p>     
-            <p>Link: {book.volumeInfo.infoLink}</p>
-             
-          {/* delete button */}
-          <button className="card-button btn btn-secondary ml-3" key={book.id} onClick={() => props.save(book.id)}>
-            Save Book
-          </button>
-        </li>
-      ))}
-    </ul>
+            {props.books.map(book => (
+                <li key={book.id} className="list-group-item card-body font-weight-bold m-3 p-3">
+                {/* key={book.id} */}
+                    <div className="d-flex justify-content-center">
+                    <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
+                    </div>
+                    <h3 className="mt-3 text-center"><b>Book:</b> {book.volumeInfo.title}</h3>
+                    <p><b>Description:</b> {book.volumeInfo.description}</p>
+                    <p><b>No. of pages:</b> {book.volumeInfo.pageCount}</p>
+                    <p><b>Category:</b> {book.volumeInfo.categories}</p>
+                    <p><b>Authors:</b> {book.volumeInfo.authors}</p>
+                    <p><b>Publisher:</b> {book.volumeInfo.publisher}</p>
+                    <p><b>Published Date:</b> {book.volumeInfo.publishedDate}</p>
+                    <p><b>Country:</b> {book.saleInfo.country}</p>              
+                    <p><b>Average Rating:</b> {book.volumeInfo.averageRating}</p>
+                    <p><b>Maturity:</b> {book.volumeInfo.maturityRating}</p>
+                    <p className="text-center"><a href={book.volumeInfo.infoLink}>Buy Book</a> | <a href={book.accessInfo.webReaderLink}>Read Book</a></p>
+                    
+                    {/* <p>Price: {book.saleInfo.listPrice.amount} </p> */}
+                    <div className="d-flex justify-content-center">
+                    {/* save button */}
+                    <button className="card-button btn btn-secondary ml-3" key={book.id} onClick={() => props.save(book.id)}>
+                       Save Book
+                    </button>
+                    </div>
+                </li>
+            ))}
+        </ul>
     )
 }
 
