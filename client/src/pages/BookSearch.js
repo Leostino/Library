@@ -29,8 +29,8 @@ class BookSearch extends React.Component {
 
         API.searchBook("becoming")
         .then(res => {
-          console.log(res.data.items);
-          this.setState({ books: res.data.items })
+          console.log(res.data);
+          this.setState({ books: res.data })
         })
         .catch(err => console.log(err));
 
@@ -42,9 +42,9 @@ class BookSearch extends React.Component {
 
         API.searchBook(query)
         .then(res => {
-            console.log(res.data.items);
+            console.log(res.data);
             this.setState({ 
-                books: res.data.items,
+                books: res.data,
                 search: ""})
           })
           .catch(err => console.log(err));

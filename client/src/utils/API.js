@@ -58,7 +58,14 @@ export default {
 
   searchBook: function(query) {
 
-    return axios.get("https://www.googleapis.com/books/v1/volumes/?", { params: { q: query } });
+
+    const searchObj = {
+      query: query
+    }
+
+
+    return axios.post("/api/search", searchObj)
+    // axios.get("https://www.googleapis.com/books/v1/volumes/?", { params: { q: query } });
   }
   
 };

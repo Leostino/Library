@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../models/index");
+const axios = require("axios");
 const { ensureAuthenticated } = require('../config/auth');
 
 
@@ -62,6 +63,22 @@ router.delete("/books/:id", ensureAuthenticated, (req, res) =>
   .then(dbModel => console.log("book deleted") && res.json(dbModel))
   .catch(err => res.status(422).json(err))
 );
+
+router.post("/search", (req, res) => {
+
+  console.log(req.body)
+
+  const query = req.body.query;
+
+
+  axios.get("https://www.googleapis.com/books/v1/volumes/?", { params: { q: query } })
+  .then(books => {
+    console.log(books.data.items)
+    res.json(books.data.items)
+  })
+  .catch(err => err => res.status(422).json(err));
+
+})
 
 
 
