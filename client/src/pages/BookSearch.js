@@ -43,7 +43,9 @@ class BookSearch extends React.Component {
         API.searchBook(query)
         .then(res => {
             console.log(res.data.items);
-            this.setState({ books: res.data.items })
+            this.setState({ 
+                books: res.data.items,
+                search: ""})
           })
           .catch(err => console.log(err));
     }
@@ -83,16 +85,7 @@ class BookSearch extends React.Component {
          // save what user typed in database when form submitted
 
         this.search(this.state.search)
-        .then(res => {
-
-          // clear input fields after form submission
-
-          this.setState({ search: "" })
-        
-        
-        
-        })
-      .catch(err => console.log(err));
+       
 
     }
 

@@ -1,10 +1,26 @@
 {
   "name": "library",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"nodemon ./bin/www\" \"npm run client\"",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd .. && cd client && npm run start",
+    "install": "cd .. && client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Leostino/Library"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Leostino/Library/issues"
+  },
+  "homepage": "https://github.com/Leostino/Library#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
@@ -20,6 +36,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "concurrently": "^4.1.0"
   }
 }
