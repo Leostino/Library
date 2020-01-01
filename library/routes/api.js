@@ -82,4 +82,13 @@ router.post("/search", (req, res) => {
 
 
 
+router.get("/search",ensureAuthenticated, (req, res) => {
+
+   res.send("Logged in to Library")
+ 
+
+})
+
+
+
 module.exports = router;

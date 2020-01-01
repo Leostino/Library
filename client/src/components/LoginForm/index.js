@@ -61,7 +61,7 @@ function LoginForm(props) {
                     </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
                         
-                        <a className="font-weight-bold" href="/view/register">Or Register User</a>
+                        <a className="font-weight-bold" href="/register">Or Register User</a>
                         
                         <a className="float-right font-weight-bold" href="">Forgot password</a>
                     </Form.Group>

@@ -20,41 +20,8 @@ router.post('/register', function(req, res) {
 
   var newUser;
 
-  const { name, email, password, password2 } = req.body;
-  let errors = [];
-
-  // check required fields
-
-  if ((!name) || (!email) || (!password) || (!password2)) {
-
-    errors.push({ msg: "Please fill in all fields"})
-  }
-
-  // check for passwords
-
-  if(password !== password2) {
-
-    errors.push({ msg: "Passwords do not match"})
-  }
-
-  // check length of password
-
-  if(password.length < 6) {
-
-    errors.push({ msg: "Password should be at least 6 characters"})
-  }
-
-  if(errors.length > 0) {
-
-    // render user registration
-
-    for (let i = 0; i < errors.length; i++) {
-
-      console.log(errors[i]);
-    }
-    
-
-  }else{
+  const { email, password } = req.body;
+ 
 
     // check for or create a user
     db.User.findOne({email: email})
@@ -69,12 +36,11 @@ router.post('/register', function(req, res) {
       }else{
 
         newUser = {
-          name, email, password
+          email, password
         }
 
         // hash password
         console.log(`
-                    ${newUser.name}
                     ${newUser.email}
                     ${newUser.password}
                     `)
@@ -85,24 +51,23 @@ router.post('/register', function(req, res) {
 
           if(err) throw err;
 
-          console.log(hash)
+
 
           newUser.password = hash
 
-          console.log(newUser.password);
+          
 
           db.User.create({ 
-            name: newUser.name,
             email: newUser.email,
             password: newUser.password
           })
           .then(user => {
-            console.log(`new ${user} created`)
+          
             // redirect new user to login page
-            // req.flash("success_msg", "You are now registered, Yon can login")
-            res.redirect("/users/login")
+            // req.flash("success_msg", "You are now registered, Yon can login")          
+            res.json(user)
           })
-          .catch(err => res.status(422).json(err));
+          // .catch(err => res.status(422).json(err));
         
           
         }))          
@@ -112,7 +77,7 @@ router.post('/register', function(req, res) {
     })
     .catch(err => res.status(422).json(err));
 
-  }
+  
 
   
 });
@@ -122,14 +87,15 @@ router.post('/register', function(req, res) {
 // user login, this is where passport works wonders
 // Login
 router.post('/login', (req, res, next) => {
+  console.log(req.body)
   passport.authenticate('local', {
     // redirect to index page
-    successRedirect: '/api/books',
+    successRedirect: '/api/search',
     failureRedirect: '/users/login',
     failureFlash: true
-  })(req, res, next);
-  console.log("user logged in, redirected to /api/books")
-});
+  })(req, res, next)
+  console.log("user logged in, redirected to /api/search")
+})
 
 // Logout
 router.get('/logout', (req, res) => {

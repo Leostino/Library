@@ -69,26 +69,31 @@ class RegisterPage extends React.Component {
                email: validEmail,
                password: this.state.password
 
-            }).then(user => {
+            }).then(res => {
 
-                console.log("Register posted")
+                window.location.replace("/");
 
-                if(!user) {
+                
 
-                    this.setState({message: "This email is not register"})
+                // if(!user) {
 
-                }else if((user) && (user.password !== this.state.password)) {
+                //     this.setState({message: "This email is not register"})
 
-                    this.setState({message: "Password is incorrect"})
+                // }else if((user) && (user.password !== this.state.password)) {
 
-                }
+                //     this.setState({message: "Password is incorrect"})
+
+                // }
 
             })
+
+            
 
 
         }       
 
 
+        
     }
 
 

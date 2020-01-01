@@ -21,30 +21,6 @@ const usersRoute = require('./routes/users');
 const app = express();
 
 
-// connecting to mongoDB
-
-const databaseUri = "mongodb://localhost/library";
-
-if (process.env.MONGODB_URI) {
-
-  mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("[MLab] ==> connected..."))
-  .catch(err => console.log(err))
-
-}else{
-
-  mongoose.connect(databaseUri, {useNewUrlParser: true, useUnifiedTopology: true})
-  .then(() => console.log("[MongoDB] ==> connected..."))
-  .catch(err => console.log(err))
-
-}
-
-mongoose.set('useCreateIndex', true);
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useUnifiedTopology', true);
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -54,7 +30,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'client/public')));
 
 
 // Express Session
@@ -70,6 +46,34 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+// connecting to mongoDB
+const databaseUri = "mongodb://localhost/library";
+
+if (process.env.MONGODB_URI) {
+
+  mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log("[MLab] ==> connected..."))
+  .catch(err => console.log(err))
+
+}else{
+
+  mongoose.connect(databaseUri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
+  .then(() => console.log("[MongoDB] ==> connected..."))
+  .catch(err => console.log(err))
+
+}
+
+// mongoose.set('useCreateIndex', true);
+// mongoose.set('useNewUrlParser', true);
+// mongoose.set('useFindAndModify', false);
+// mongoose.set('useUnifiedTopology', true);
+
+
+// set routes
+app.use('/api', apiRoute);
+app.use('/users', usersRoute);
+
+
 // Connect Flash
 // app.use(flash());
 
@@ -80,13 +84,9 @@ app.use(passport.session());
 //   next();
 // })
 
-// set routes
-app.use('/api', apiRoute);
-app.use('/users', usersRoute);
 
 
 // build on heroku
-
 if (process.env.NODE_ENV === "production") {
   
   app.use(express.static("client/build"));
