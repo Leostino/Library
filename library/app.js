@@ -63,15 +63,13 @@ if (process.env.MONGODB_URI) {
 
 }
 
-// mongoose.set('useCreateIndex', true);
-// mongoose.set('useNewUrlParser', true);
-// mongoose.set('useFindAndModify', false);
-// mongoose.set('useUnifiedTopology', true);
-
 
 // set routes
 app.use('/api', apiRoute);
 app.use('/users', usersRoute);
+
+
+
 
 
 // Connect Flash

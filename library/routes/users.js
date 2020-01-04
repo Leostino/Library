@@ -6,9 +6,10 @@ const bcrypt = require("bcryptjs");
 
 
 /* GET users listing. */
-// router.get('/login', function(req, res, next) {
-//   res.send('Login');
-// });
+router.get('/login', (req, res) => {
+  res.send('Login Page');
+  
+})
 
 // router.get('/register', function(req, res, next) {
 //   res.send('Register');
@@ -16,7 +17,7 @@ const bcrypt = require("bcryptjs");
 
 
 // Register new user
-router.post('/register', function(req, res) {
+router.post('/register', (req, res) => {
 
   var newUser;
 
@@ -86,15 +87,17 @@ router.post('/register', function(req, res) {
 
 // user login, this is where passport works wonders
 // Login
-router.post('/login', (req, res, next) => {
-  console.log(req.body)
+router.post('/login', 
   passport.authenticate('local', {
     // redirect to index page
-    successRedirect: '/api/search',
+    // successRedirect: '/api/search',
     failureRedirect: '/users/login',
     failureFlash: true
-  })(req, res, next)
-  console.log("user logged in, redirected to /api/search")
+  }), function(req, res) {
+
+  console.log(req.user)
+  // res.json(req.user.email)
+  res.redirect("/api/search");
 })
 
 // Logout

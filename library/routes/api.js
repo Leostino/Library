@@ -15,8 +15,8 @@ console.log("user LOGGED")
   .populate("books")
   .then(data => {
 
-    console.log(data.books)
-   console.log(data.books[0].description)
+  //   console.log(data.books)
+  //  console.log(data.books[0].description)
 
      
      res.json(data.books)
@@ -27,9 +27,9 @@ console.log("user LOGGED")
 
 
 router.post("/books", ensureAuthenticated, (req, res) => {
-  console.log(req.body)
+  
   db.Library.create(req.body)
-  .then(({ _id }) => db.User.findOneAndUpdate({}, { $push: { books: _id } }, { new: true }))
+  .then(({ _id }) => db.User.findOneAndUpdate({email: req.user.email}, { $push: { books: _id } }, { new: true }))
   .then(dbModel => {
     console.log(dbModel)
     res.json(dbModel)
@@ -64,16 +64,16 @@ router.delete("/books/:id", ensureAuthenticated, (req, res) =>
   .catch(err => res.status(422).json(err))
 );
 
-router.post("/search", (req, res) => {
+router.post("/search", ensureAuthenticated, (req, res) => {
 
-  console.log(req.body)
+ 
 
   const query = req.body.query;
 
 
   axios.get("https://www.googleapis.com/books/v1/volumes/?", { params: { q: query } })
   .then(books => {
-    console.log(books.data.items)
+    
     res.json(books.data.items)
   })
   .catch(err => err => res.status(422).json(err));
@@ -82,7 +82,7 @@ router.post("/search", (req, res) => {
 
 
 
-router.get("/search",ensureAuthenticated, (req, res) => {
+router.get("/search", (req, res) => {
 
    res.send("Logged in to Library")
  

@@ -7,7 +7,7 @@ const LibrarySchema = new Schema({
         type: String,
         required: true
     },
-    authors: {
+    author: {
         type: String,
         trim: true,
         required: true
@@ -46,14 +46,6 @@ const LibrarySchema = new Schema({
         required: true
     },
     country: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    currency: {
         type: String,
         required: true
     },

@@ -15,6 +15,10 @@ class LoginPage extends React.Component {
         message: ""
     }
 
+    componentDidMount() {
+        
+    }
+
 
     ValidateEmail = email => {
 

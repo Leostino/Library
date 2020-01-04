@@ -5,16 +5,24 @@ import axios from "axios";
 
 export default {
   // USER ROUTES
-  // login user
-
+  // post user login
   login: function(loginData) {
     return axios.post("/users/login", loginData);
   },
 
-  // register user
+  // get login page
+  getLogin: function() {
+      return axios.get("/users/login");
+  },
 
+  // register user
   register: function(registerData) {
     return axios.post("/users/register", registerData);
+  },
+
+  // get register page
+  getRegister: function() {
+    return axios.get("/users/register")
   },
 
   // logout user
