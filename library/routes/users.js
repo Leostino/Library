@@ -91,13 +91,22 @@ router.post('/login',
   passport.authenticate('local', {
     // redirect to index page
     // successRedirect: '/api/search',
-    failureRedirect: '/users/login',
+    // failureRedirect: '/users/login',
     failureFlash: true
-  }), function(req, res) {
+  }), 
+  function(req, res) {
+    if(req.user) {
 
-  console.log(req.user)
-  // res.json(req.user.email)
-  res.redirect("/api/search");
+        // console.log(req.user)
+       // res.json(req.user.email)
+       res.send("User logged in")
+       
+      //  res.redirect("/api/search");
+
+    }
+
+ 
+  
 })
 
 // Logout

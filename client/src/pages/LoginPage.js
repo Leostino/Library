@@ -67,26 +67,8 @@ class LoginPage extends React.Component {
                email: validEmail,
                password: this.state.password
 
-            }).then(res => {
-
-                console.log("Login posted")
-
-                // if(!user) {
-
-                //     this.setState({message: "This email is not register"})
-
-                // }else if((user) && (user.password !== this.state.password)) {
-
-                //     this.setState({message: "Password is incorrect"})
-
-                // }
-
-                 
-                window.location.replace("/search");
-
-                
-
-            })
+            }).then(res => window.location.replace("/search"))
+            .catch(err => this.setState({message: "Your email or password is incorrect"}))
 
 
         }       
