@@ -6,10 +6,10 @@ const bcrypt = require("bcryptjs");
 
 
 /* GET users listing. */
-router.get('/login', (req, res) => {
-  res.send('Login Page');
+// router.get('/login', (req, res) => {
+//   res.send('Login Page');
   
-})
+// })
 
 // router.get('/register', function(req, res, next) {
 //   res.send('Register');
@@ -41,10 +41,10 @@ router.post('/register', (req, res) => {
         }
 
         // hash password
-        console.log(`
-                    ${newUser.email}
-                    ${newUser.password}
-                    `)
+        // console.log(`
+        //             ${newUser.email}
+        //             ${newUser.password}
+        //             `)
 
         bcrypt.genSalt(10, (err, salt) => 
 

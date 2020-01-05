@@ -10,12 +10,12 @@ const { ensureAuthenticated } = require('../config/auth');
 
 // api routes
 router.get('/books', ensureAuthenticated, (req, res) => {
-console.log("user LOGGED")
-  db.User.findOne({email: req.body.email})
+console.log(req.user.email+" LOGGED")
+  db.User.findOne({email: req.user.email})
   .populate("books")
   .then(data => {
 
-  //   console.log(data.books)
+    console.log(data.books)
   //  console.log(data.books[0].description)
 
      

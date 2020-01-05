@@ -30,10 +30,10 @@ function NavBar (props) {
       />
       <Button variant="outline-light" onClick={props.handleFormSubmit}>Search</Button>
     </Form>
-    <Nav className="mr-5">
-      <Nav.Link href="#home"><h5 className="mb-n5 mt-3 text-light">Home</h5></Nav.Link>
-      <Nav.Link href="#features"><h5 className="mb-n5 ml-3 mr-3 mt-3 text-light">Features</h5></Nav.Link>
-      <Nav.Link href="#pricing"><h5 className="mb-n5 mt-3 text-light">Pricing</h5></Nav.Link>
+    <Nav className="ml-auto mr-5">
+      <Nav.Link href="/search"><h5 className="mb-n5 mt-3 text-light">Home</h5></Nav.Link>
+      <Nav.Link href="/books"><h5 className="mb-n5 ml-3 mr-3 mt-3 text-light">My Books</h5></Nav.Link>
+      <Nav.Link href="/edit"><h5 className="mb-n5 mt-3 text-light">Edit</h5></Nav.Link>
     </Nav>
     
 
