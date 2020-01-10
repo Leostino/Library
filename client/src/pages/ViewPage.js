@@ -80,7 +80,7 @@ class ViewPage extends React.Component {
 
     render () {
         return (        
-            <div style={{ backgroundColor: "#6c757d"}}>
+            <div style={{ backgroundColor: "white"}}>
                 
                 <ViewNav 
                 search={this.state.search}
@@ -89,11 +89,13 @@ class ViewPage extends React.Component {
                 handleFormSubmit={this.handleFormSubmit}
                 />
 
-                <Container>
+                <Container style={{height: "auto"}}>
+                    <div style={{backgroundColor: "#6c757d", marginTop: "40px", marginBottom: "40px"}}>
             
                  <MyBooks 
                  books={this.state.books}
                  />
+                 </div>
                 
                 </Container>
                 

@@ -20,7 +20,7 @@ class BookSearch extends React.Component {
     state = {
 
         search: "",
-        books: []
+        books: [],
     }
 
     // load this after search page loads
@@ -58,48 +58,55 @@ class BookSearch extends React.Component {
     // save book when save button clicked
     save = id => {
 
-        // console.log("id" + id);
-    if (this.state.books.indexOf(id) === -1){
-        console.log("if1 " + id);
-        console.log(this.state.books.indexOf(id));
-        // console.log(`${this.state.books[0].volumeInfo.title}
-        //          ${this.state.books[0].volumeInfo.authors} 
-        //     ${this.state.books[0].volumeInfo.publisher}
-        //     ${this.state.books[0].volumeInfo.publishedDate}
-        //     ${this.state.books[0].volumeInfo.description}
-        //     ${this.state.books[0].volumeInfo.pageCount}
-        //     ${this.state.books[0].volumeInfo.categories}
-        //     ${this.state.books[0].volumeInfo.averageRating}
-        //     ${this.state.books[0].volumeInfo.maturityRating}
-        //     ${this.state.books[0].volumeInfo.imageLinks.thumbnail}
-        //     ${this.state.books[0].saleInfo.country}
-        //     ${this.state.books[0].volumeInfo.infoLink}
-        //     ${this.state.books[0].accessInfo.webReaderLink}`);
+        const books = this.state.books.filter(book => book.id !== id);
+
+        this.setState({ books })
+
+        const clickedBook = this.state.books.filter(book => book.id === id);
+
+
+        if (clickedBook){
+
+   
+        // console.log(`${clickedBook[0].volumeInfo.title}
+        //          ${clickedBook[0].volumeInfo.authors} 
+        //     ${clickedBook[0].volumeInfo.publisher}
+        //     ${clickedBook[0].volumeInfo.publishedDate}
+        //     ${clickedBook[0].volumeInfo.description}
+        //     ${clickedBook[0].volumeInfo.pageCount}
+        //     ${clickedBook[0].volumeInfo.categories}
+        //     ${clickedBook[0].volumeInfo.averageRating}
+        //     ${clickedBook[0].volumeInfo.maturityRating}
+        //     ${clickedBook[0].volumeInfo.imageLinks.thumbnail}
+        //     ${clickedBook[0].saleInfo.country}
+        //     ${clickedBook[0].volumeInfo.infoLink}
+        //     ${clickedBook[0].accessInfo.webReaderLink}`);
         
 
-        // if ids match save book to database
         API.saveBook({
-             title: this.state.books[0].volumeInfo.title,
-             author: this.state.books[0].volumeInfo.authors[0] ,
-             publisher:this.state.books[0].volumeInfo.publisher,
-             published_date : this.state.books[0].volumeInfo.publishedDate,
-             description: this.state.books[0].volumeInfo.description,
-             pages: this.state.books[0].volumeInfo.pageCount,
-             category: this.state.books[0].volumeInfo.categories[0],
-             rating: this.state.books[0].volumeInfo.averageRating,
-             maturity: this.state.books[0].volumeInfo.maturityRating,
-             image: this.state.books[0].volumeInfo.imageLinks.thumbnail,
-             country: this.state.books[0].saleInfo.country,
-             purchase_link: this.state.books[0].volumeInfo.infoLink,
-             read_link: this.state.books[0].accessInfo.webReaderLink
+             title: clickedBook[0].volumeInfo.title,
+             author: clickedBook[0].volumeInfo.authors[0] ,
+             publisher: clickedBook[0].volumeInfo.publisher,
+             published_date : clickedBook[0].volumeInfo.publishedDate,
+             description: clickedBook[0].volumeInfo.description,
+             pages: clickedBook[0].volumeInfo.pageCount,
+             category: clickedBook[0].volumeInfo.categories[0],
+             rating: clickedBook[0].volumeInfo.averageRating,
+             maturity: clickedBook[0].volumeInfo.maturityRating,
+             image: clickedBook[0].volumeInfo.imageLinks.thumbnail,
+             country: clickedBook[0].saleInfo.country,
+             purchase_link: clickedBook[0].volumeInfo.infoLink,
+             read_link: clickedBook[0].accessInfo.webReaderLink
         })
-        .then(res => console.log(res))
-           .catch(err => console.log(err));
-      }
-      else{
-        console.log("else " + id);
-      }
+        .then(res => {
 
+             console.log(res)
+
+                   
+        })
+           .catch(err => console.log(err));
+      }    
+        
     }
 
 
