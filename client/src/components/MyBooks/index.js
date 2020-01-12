@@ -4,7 +4,7 @@ function MyBooks(props) {
     return (
         <div className="m-3 p-3 d-flex flex-wrap justify-content-start">
             {props.books.map(book => (
-                <div style={{ maxWidth:"300px",height:"450px" }} key={book.id} className="bg-light card-body font-weight-bold m-4 text-center">
+                <div style={{ maxWidth:"300px",height:"450px" }} key={book._id} className="bg-light card-body font-weight-bold m-4 text-center">
                 {/* key={book.id} */}
                     <div className="d-flex justify-content-center">
                     <img src={book.image} alt={book.title} />
@@ -18,7 +18,7 @@ function MyBooks(props) {
                     {/* <p>Price: {book.saleInfo.listPrice.amount} </p> */}
                     <div className="d-flex justify-content-center">
                     {/* save button */}
-                    <button className="card-button btn btn-secondary ml-3" key={book.id} onClick={() => props.save(book.id)}>
+                    <button className="card-button btn btn-secondary ml-3" key={book._id} onClick={() => props.delete(book._id)}>
                        Delete Book
                     </button>
                     </div>

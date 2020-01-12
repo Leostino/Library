@@ -30,50 +30,43 @@ class ViewPage extends React.Component {
         // run check to backend authentication to see if user is logged in before viewing this page
         // if not load login page
 
+        this.getBooks();
+
+    }
+
+
+
+    getBooks = () => {
+
         API.getBooks()
-        .then(res => {
-          console.log(res.data);
-
-           this.setState({ books: res.data })
-        })
+        .then(res => this.setState({ books: res.data }))
         .catch(err => console.log(err));
+    }
 
+
+    // method to delete book from database
+    delete = id => {
+
+        API.deleteBook(id)
+        .then(res => this.getBooks())
+        .catch(err => console.log(err))
     }
 
 
     
 
 
-    // sign out method
+    // method to sign out from view page
     logout = () => {
+
         API.logout()
         .then(res => console.log("user logged out"))
         .catch(err => console.log(err));
     }
 
 
-    // handles changes in input fields when user types
-    handleInputChange = event => {
+  
 
-        const { name, value } = event.target;
-
-        this.setState({
-            [name] : value
-        })
-      
-    };
-
-
-    // handles form submission
-
-    handleFormSubmit = event => {
-
-        // prevent default form submission
-
-       
-       
-
-    }
 
    
     // renders the search page using the required components
@@ -82,11 +75,8 @@ class ViewPage extends React.Component {
         return (        
             <div style={{ backgroundColor: "white"}}>
                 
-                <ViewNav 
-                search={this.state.search}
+                <ViewNav               
                 logout={this.logout}
-                handleInputChange={this.handleInputChange}
-                handleFormSubmit={this.handleFormSubmit}
                 />
 
                 <Container style={{height: "auto"}}>
@@ -94,6 +84,7 @@ class ViewPage extends React.Component {
             
                  <MyBooks 
                  books={this.state.books}
+                 delete={this.delete}
                  />
                  </div>
                 

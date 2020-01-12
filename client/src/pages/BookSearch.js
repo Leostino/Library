@@ -98,13 +98,8 @@ class BookSearch extends React.Component {
              purchase_link: clickedBook[0].volumeInfo.infoLink,
              read_link: clickedBook[0].accessInfo.webReaderLink
         })
-        .then(res => {
-
-             console.log(res)
-
-                   
-        })
-           .catch(err => console.log(err));
+        .then(res => console.log("Book Saved"))
+        .catch(err => console.log(err));
       }    
         
     }

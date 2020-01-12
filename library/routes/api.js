@@ -15,7 +15,7 @@ console.log(req.user.email+" LOGGED")
   .populate("books")
   .then(data => {
 
-    console.log(data.books)
+  //   console.log(data.books)
   //  console.log(data.books[0].description)
 
      
@@ -42,7 +42,7 @@ router.post("/books", ensureAuthenticated, (req, res) => {
 router.get("/books/:id", ensureAuthenticated, (req, res) => 
   db.Library.findById(req.params.id)
   .then(dbModel => {
-    console.log(dbModel)
+    // console.log(dbModel)
     res.json(dbModel)})
   .catch(err => res.status(422).json(err))
 );
@@ -57,10 +57,10 @@ router.put("/books/:id", ensureAuthenticated, (req, res) =>
 
 
 
-router.delete("/books/:id", ensureAuthenticated, (req, res) => 
+router.delete("/books/:id", (req, res) => 
   db.Library.findById({ _id: req.params.id })
-  .then(dbModel => dbModel.deleteOne())
-  .then(dbModel => console.log("book deleted") && res.json(dbModel))
+  .then(dbModel => dbModel.remove())
+  .then(dbModel => res.json(dbModel))
   .catch(err => res.status(422).json(err))
 );
 
