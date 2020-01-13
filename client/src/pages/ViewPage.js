@@ -60,7 +60,9 @@ class ViewPage extends React.Component {
     logout = () => {
 
         API.logout()
-        .then(res => console.log("user logged out"))
+        .then(res => {
+            window.location.replace("/")
+            console.log("user logged out")})
         .catch(err => console.log(err));
     }
 

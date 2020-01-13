@@ -67,22 +67,6 @@ class BookSearch extends React.Component {
 
         if (clickedBook){
 
-   
-        // console.log(`${clickedBook[0].volumeInfo.title}
-        //          ${clickedBook[0].volumeInfo.authors} 
-        //     ${clickedBook[0].volumeInfo.publisher}
-        //     ${clickedBook[0].volumeInfo.publishedDate}
-        //     ${clickedBook[0].volumeInfo.description}
-        //     ${clickedBook[0].volumeInfo.pageCount}
-        //     ${clickedBook[0].volumeInfo.categories}
-        //     ${clickedBook[0].volumeInfo.averageRating}
-        //     ${clickedBook[0].volumeInfo.maturityRating}
-        //     ${clickedBook[0].volumeInfo.imageLinks.thumbnail}
-        //     ${clickedBook[0].saleInfo.country}
-        //     ${clickedBook[0].volumeInfo.infoLink}
-        //     ${clickedBook[0].accessInfo.webReaderLink}`);
-        
-
         API.saveBook({
              title: clickedBook[0].volumeInfo.title,
              author: clickedBook[0].volumeInfo.authors[0] ,
@@ -105,10 +89,13 @@ class BookSearch extends React.Component {
     }
 
 
-    // sign out method
+    // method to sign out from book search page
     logout = () => {
+
         API.logout()
-        .then(res => console.log("user logged out"))
+        .then(res => {
+            window.location.replace("/")
+            console.log("user logged out")})
         .catch(err => console.log(err));
     }
 
