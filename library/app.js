@@ -87,7 +87,7 @@ app.use('/users', usersRoute);
 // build on heroku
 if (process.env.NODE_ENV === "production") {
   
-  app.use(express.static("client/build"));
+  app.use(express.static("../client/build"));
 
   app.get("*", (req, res) => {
 
