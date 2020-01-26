@@ -101,7 +101,7 @@ router.post('/login',
        // res.json(req.user.email)
        res.send("User logged in")
        
-      //  res.redirect("/api/search");
+      
 
     }
 

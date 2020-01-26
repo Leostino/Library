@@ -31,7 +31,7 @@ router.post("/books", ensureAuthenticated, (req, res) => {
   db.Library.create(req.body)
   .then(({ _id }) => db.User.findOneAndUpdate({email: req.user.email}, { $push: { books: _id } }, { new: true }))
   .then(dbModel => {
-    console.log(dbModel)
+    
     res.json(dbModel)
   })
   .catch(err => res.status(422).json(err))}
@@ -42,7 +42,7 @@ router.post("/books", ensureAuthenticated, (req, res) => {
 router.get("/books/:id", ensureAuthenticated, (req, res) => 
   db.Library.findById(req.params.id)
   .then(dbModel => {
-    // console.log(dbModel)
+    
     res.json(dbModel)})
   .catch(err => res.status(422).json(err))
 );
