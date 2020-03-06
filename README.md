@@ -38,6 +38,6 @@ Library is a full-stack react application that uses Google's book API and MondoD
 * Heroku
 
 
-## Developers
+## Developer
 
-Leonard Ezeudu * Marvin Davis * Diana Lam * John Choi
+Leonard Ezeudu
