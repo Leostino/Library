@@ -4,10 +4,10 @@ const proxy = require('http-proxy-middleware');
         app.use("/users/*", proxy({ 
             target: 'http://localhost:8080/' ,
             changeOrigin: true
-        }));
+        })),
         app.use("/api/*", proxy({ 
             target: 'http://localhost:8080/',
-            changeOrigin: true,
+            changeOrigin: true
             
         }));
     };
