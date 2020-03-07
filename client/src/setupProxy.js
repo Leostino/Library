@@ -1,8 +1,18 @@
 const proxy = require('http-proxy-middleware');
 
     module.exports = function(app) {
-        app.use(proxy('/users/*', { target: 'http://127.0.0.1:8080/' }));
-        app.use(proxy('/api/*', { target: 'http://127.0.0.1:8080/' }));
+        app.use(proxy('/users/*', { target: 'https://poclibrary.herokuapp.com' ,
+        changeOrigin: true,
+              logLevel: 'debug',
+              router: {
+                'localhost:3000': 'http://localhost:8080'
+              }}));
+        app.use(proxy('/api/*', { target: 'https://poclibrary.herokuapp.com',
+        changeOrigin: true,
+              logLevel: 'debug',
+              router: {
+                'localhost:3000': 'http://localhost:8080'
+              }}));
     };
 
 
@@ -16,3 +26,4 @@ const proxy = require('http-proxy-middleware');
     //       }
     //     }));
     //   };
+
