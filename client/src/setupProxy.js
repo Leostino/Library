@@ -2,20 +2,13 @@ const proxy = require('http-proxy-middleware');
 
     module.exports = function(app) {
         app.use("/users/*", proxy({ 
-            target: 'https://poclibrary.herokuapp.com' ,
-            changeOrigin: true,
-            logLevel: 'debug',
-            router: {
-                'localhost:3000': 'http://localhost:8080/'
-            }
+            target: 'http://localhost:8080/' ,
+            changeOrigin: true
         }));
         app.use("/api/*", proxy({ 
-            target: 'https://poclibrary.herokuapp.com',
+            target: 'http://localhost:8080/',
             changeOrigin: true,
-            logLevel: 'debug',
-            router: {
-                'localhost:3000': 'http://localhost:8080/'
-            }
+            
         }));
     };
 
